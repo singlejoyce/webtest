@@ -12,7 +12,7 @@ class L5ddlLogin(unittest.TestCase):
         self.base_url = "http://passport.ddianle.com/login.html"
         self.driver.get(self.base_url)
 
-    def test_l5ddl_login_normal(self):
+    def test_login_normal(self):
         username = 'testy01'
         password = 'a'
 
@@ -30,7 +30,7 @@ class L5ddlLogin(unittest.TestCase):
         time.sleep(2)
         self.assertEqual('账号管理', self.driver.title)
 
-    def l5ddl_login_error(self, username, password):
+    def login_error(self, username, password):
         self.driver.find_element_by_id("username").clear()
         self.driver.find_element_by_id("username").send_keys(username)
         self.driver.find_element_by_id("pwd").clear()
@@ -42,25 +42,25 @@ class L5ddlLogin(unittest.TestCase):
         text = self.driver.find_element_by_xpath("//div[@class='errorsInput_pc']/span[@class='ng-binding']").text
         return text
 
-    def test_l5ddl_login_error1(self):
+    def test_login_error1(self):
         username = 'testy01111111111111111111'
         password = 'a'
 
-        text = self.l5ddl_login_error(username, password)
+        text = self.login_error(username, password)
         self.assertEqual(text, "用户名不存在.")
 
-    def test_l5ddl_login_error2(self):
+    def test_login_error2(self):
         username = ''
         password = ''
 
-        text = self.l5ddl_login_error(username, password)
+        text = self.login_error(username, password)
         self.assertEqual(text, "请输入正确的用户名")
 
-    def test_l5ddl_login_error3(self):
+    def test_login_error3(self):
         username = 'testy01'
         password = 'aaaaaaaa'
 
-        text = self.l5ddl_login_error(username, password)
+        text = self.login_error(username, password)
         self.assertEqual(text, "用户名或密码错误.")
 
     def test_click_register(self):
